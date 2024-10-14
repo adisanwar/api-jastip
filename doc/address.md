@@ -23,6 +23,8 @@ Response Body (Success) :
 
 ```json
 {
+  "status": 200,
+  "message": "Address created successfully",
   "data" : {
     "id" : 1,
     "street" : "Jalan Apa",
@@ -38,6 +40,8 @@ Response Body (Failed) :
 
 ```json
 {
+  "status": 400,
+  "message": "Bad Request",
   "errors" : "postal_code is required"
 }
 ```
@@ -53,7 +57,10 @@ Response Body (Success) :
 
 ```json
 {
-  "data" : {
+  "status": 200,
+  "message": "Success",
+  "data" :
+   {
     "id" : 1,
     "street" : "Jalan Apa",
     "city" : "Kota Apa",
@@ -68,6 +75,8 @@ Response Body (Failed) :
 
 ```json
 {
+  "status": 404,
+  "message": "Address Not Found",
   "errors" : "Address is not found"
 }
 ```
@@ -95,6 +104,8 @@ Response Body (Success) :
 
 ```json
 {
+  "status": 200,
+  "message": "Address updated successfully",
   "data" : {
     "id" : 1,
     "street" : "Jalan Apa",
@@ -110,6 +121,8 @@ Response Body (Failed) :
 
 ```json
 {
+  "status": 400,
+  "message": "Bad request",
   "errors" : "postal_code is required"
 }
 ```
@@ -125,6 +138,8 @@ Response Body (Success) :
 
 ```json
 {
+  "status": 200,
+  "message": "User Deleted",
   "data" : "OK"
 }
 ```
@@ -133,6 +148,8 @@ Response Body (Failed) :
 
 ```json
 {
+  "status": 404,
+  "message": "Not Found",
   "errors" : "Address is not found"
 }
 ```
@@ -148,6 +165,8 @@ Response Body (Success) :
 
 ```json
 {
+  "status": 200,
+  "message": "Success",
   "data" : [
     {
       "id" : 1,
@@ -173,6 +192,8 @@ Response Body (Failed) :
 
 ```json
 {
+  "status": 404,
+  "message": "Not Found",
   "errors" : "Contact is not found"
 }
 ```

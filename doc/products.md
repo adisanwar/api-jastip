@@ -1,8 +1,8 @@
-# Contact API Spec
+# Product API Spec
 
-## Create Contact
+## Create Product
 
-Endpoint : POST /api/contacts
+Endpoint : POST /api/products
 
 Request Header :
 - X-API-TOKEN : token
@@ -12,10 +12,10 @@ Request Body :
 ```json
 {
   "data" : {
-    "fullname" : "Adi S. Anwar",
-    "phone" : "089999999",
-    "birth" : "12/12/1290",
-    "no_nik": "1234",
+    "name" : "Bakso",
+    "description" : "deskripsi",
+    "price" : "10,000",
+    "image_url": "test",
     "createdAt" : "date",
     "updatedAt" : "date"
   }
@@ -27,12 +27,12 @@ Response Body (Success) :
 ```json
 {
   "status": 200,
-  "message": "Contact created successfully",
+  "message": "Product created successfully",
   "data" : {
-     "fullname" : "Adi S. Anwar",
-    "phone" : "089999999",
-    "birth" : "12/12/1290",
-    "no_nik": "1234",
+     "name" : "Bakso",
+    "description" : "deskripsi",
+    "price" : "10,000",
+    "image_url": "test",
   }
 }
 ```
@@ -50,9 +50,9 @@ Response Body (Failed) :
 }
 ```
 
-## Get Contact
+## Get Product
 
-Endpoint : GET /api/contacts/:id
+Endpoint : GET /api/products/:id
 
 Request Header :
 - X-API-TOKEN : token
@@ -62,13 +62,13 @@ Response Body (Success) :
 ```json
 {
   "status": 200,
-  "message": "Contact created successfully",
+  "message": "Product created successfully",
   "data" : {
     "id" : 1,
-    "fullname" : "Adi S. Anwar",
-    "phone" : "089999999",
-    "birth" : "12/12/1290",
-    "no_nik": "1234",
+    "name" : "Bakso",
+    "description" : "deskripsi",
+    "price" : "10,000",
+    "image_url": "test",
   }
 }
 ```
@@ -78,14 +78,14 @@ Response Body (Failed) :
 ```json
 {
     "status": 404,
-  "message": "Contact Not Found",
-  "errors" : "Contact is not found"
+  "message": "Product Not Found",
+  "errors" : "Product is not found"
 }
 ```
 
-## Update Contact
+## Update Product
 
-Endpoint : PATCH /api/contacts/:id
+Endpoint : PATCH /api/Products/:id
 
 Request Header :
 - X-API-TOKEN : token
@@ -96,10 +96,10 @@ Request Body :
 {
   "data" : {
     "id" : 1,
-    "fullname" : "Adi S. Anwar",
-    "phone" : "089999999",
-    "birth" : "12/12/1290",
-    "no_nik": "1234",
+    "name" : "Bakso",
+    "description" : "deskripsi",
+    "price" : "10,000",
+    "image_url": "test",
   }
 }
 ```
@@ -109,13 +109,13 @@ Response Body (Success) :
 ```json
 {
   "status": 200,
-  "message": "Contact updated successfully",
+  "message": "Product updated successfully",
  "data" : {
     "id" : 1,
-    "fullname" : "Adi S. Anwar",
-    "phone" : "089999999",
-    "birth" : "12/12/1290",
-    "no_nik": "1234",
+    "name" : "Bakso",
+    "description" : "deskripsi",
+    "price" : "10,000",
+    "image_url": "test",
   }
 }
 ```
@@ -130,9 +130,9 @@ Response Body (Failed) :
 }
 ```
 
-## Remove Contact
+## Remove Product
 
-Endpoint : DELETE /api/contacts/:id
+Endpoint : DELETE /api/Products/:id
 
 Request Header :
 - X-API-TOKEN : token
@@ -142,7 +142,7 @@ Response Body (Success) :
 ```json
 {
   "status": 200,
-  "message": "Contact Removed",
+  "message": "Product Removed",
   "data" : "OK"
 }
 ```
@@ -152,19 +152,19 @@ Response Body (Failed) :
 ```json
 {
   "status": 404,
-  "message": "Contact Not Found",
-  "errors" : "Contact is not found"
+  "message": "Product Not Found",
+  "errors" : "Product is not found"
 }
 ```
 
-## Search Contact
+## Search Product
 
-Endpoint : GET /api/contacts
+Endpoint : GET /api/Products
 
 Query Parameter :
-- name : string, contact first name or contact last name, optional
-- phone : string, contact phone, optional
-- ktp   : number  contact ktp
+- name : string, Product first name or Product last name, optional
+- phone : string, Product phone, optional
+- ktp   : number  Product ktp
 - page : number, default 1
 - size : number, default 10
 
@@ -180,17 +180,17 @@ Response Body (Success) :
   "data" : [
     {
     "id" : 1,
-    "fullname" : "Adi S. Anwar",
-    "phone" : "089999999",
-    "birth" : "12/12/1290",
-    "no_nik": "1234",
+    "name" : "Bakso",
+    "description" : "deskripsi",
+    "price" : "10,000",
+    "image_url": "test",
   },
     {
     "id" : 1,
-    "fullname" : "Adi S. Anwar",
-    "phone" : "089999999",
-    "birth" : "12/12/1290",
-    "no_nik": "1234",
+    "name" : "Bakso",
+    "description" : "deskripsi",
+    "price" : "10,000",
+    "image_url": "test",
     }
   ],
   "paging" : {
@@ -207,6 +207,6 @@ Response Body (Failed) :
 {
   "status": 401,
   "message": "Unauthorized",
-  "errors" : "Unauthorized"
+  "errors" : "Please Login First"
 }
 ```

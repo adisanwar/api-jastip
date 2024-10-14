@@ -27,6 +27,7 @@ Response Body (Success) :
   "status": 200,
   "message": "User created successfully",
   "data": {
+    "id": 1,
     "username": "Adi",
     "name": "Adi",
     "email": "adi@adi.com",
@@ -57,6 +58,7 @@ Request Body :
 
 ```json
 {
+  "id": 1,
   "username": "Adi",
   "email": "adi@adi.com",
   "password": "rahasia",
@@ -71,6 +73,7 @@ Response Body (Success) :
   "status": 200,
   "message": "Login successfully",
   "data": {
+    "id": 1,
     "username": "Adi",
     "name": " Adi",
     "token": "uuid",
@@ -106,6 +109,7 @@ Response Body (Success) :
   "status": 200,
   "message": "User created successfully",
   "data": {
+    "id": 1,
     "username": "Adi",
     "email": "Adi@adi.com",
     "role" : "admin",
@@ -137,8 +141,10 @@ Request Body :
 
 ```json
 {
+  "username" : "Adi", //opsional
   "password": "rahasia", // tidak wajib
-  "name": " Adi" // tidak wajib
+  "email": "Adi@adi.com", //opsional
+  "role" : "admin", //opsional
 }
 ```
 
@@ -146,9 +152,14 @@ Response Body (Success) :
 
 ```json
 {
+  "status": 200,
+  "message": "Users Updated!",
   "data": {
-    "username": "Adi",
-    "name": " Adi"
+    "id": 1,
+    "username" : "Adi",
+    "password": "rahasia",
+    "email": "Adi@adi.com",
+    "role" : "admin",
   }
 }
 ```
@@ -157,7 +168,9 @@ Response Body (Failed) :
 
 ```json
 {
-  "errors": "Unauthorized, ..."
+  "status": 401,
+  "message": "Unauthorize",
+  "errors": "Please Login First"
 }
 ```
 
@@ -173,6 +186,8 @@ Response Body (Success) :
 
 ```json
 {
+  "status": 200,
+  "message": "Logout Succesfully",
   "data": "OK"
 }
 ```
@@ -181,6 +196,8 @@ Response Body (Failed) :
 
 ```json
 {
-  "errors": "Unauthorized, ..."
+  "status": 401,
+  "message": "Unauthorize",
+  "errors": "Please Login First"
 }
 ```
