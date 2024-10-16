@@ -35,6 +35,7 @@ model Contact {
   id        String   @id @default(uuid())
   fullname  String?  @db.VarChar(50)
   phone     String?  @db.VarChar(15)
+  image     String?  @db.VarChar(50)
   birth     DateTime?
   no_nik    String?  @db.VarChar(20)
   gender    String?  @db.VarChar(10)

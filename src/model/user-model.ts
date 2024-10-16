@@ -4,9 +4,9 @@ export type UserResponse = {
     id : string;
     username: string;
     password: string;
-    email?: string;
-    token?: string;
-    status?: boolean;
+    email?: string | null;
+    token?: string | null;
+    status?: boolean | null;
     role: string;
 }
 
@@ -30,9 +30,9 @@ export type LoginUserRequest = {
 export type UpdateUserRequest = {
     username: string;
     password: string;
-    email?: string;
-    token?: string;
-    status?: boolean;
+    email?: string | null;
+    token?: string | null;
+    status?: boolean | null;
     role?: string;
 }
 
@@ -44,6 +44,7 @@ export type UpdateUserRequest = {
 
 export function toUserResponse(user: User): UserResponse {
     return {
+    id : user.id,
     username: user.username,
     password: user.password,
     email: user.email,

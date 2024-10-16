@@ -19,6 +19,7 @@ CREATE TABLE `contacts` (
     `id` VARCHAR(191) NOT NULL,
     `fullname` VARCHAR(50) NULL,
     `phone` VARCHAR(15) NULL,
+    `image` VARCHAR(50) NULL,
     `birth` DATETIME(3) NULL,
     `no_nik` VARCHAR(20) NULL,
     `gender` VARCHAR(10) NULL,
