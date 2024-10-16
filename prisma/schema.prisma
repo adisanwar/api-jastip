@@ -9,6 +9,196 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique @db.VarChar(30)
+  password  String   @db.VarChar(30)
+  email     String   @db.VarChar(50)
+  status    Boolean?
+  role      String   @db.VarChar(10)
+  token     String?  @db.VarChar(30)
+  createdAt DateTime     @default(now())    // Default to current timestamp when created
+  updatedAt DateTime     @updatedAt         // Automatically updates to current timestamp when modified
+
+  order Order[]
+  contacts Contact[]
+  review  Review[]
+  auditlog AuditLog[]
+  @@map("users")
+}
+
+model Contact {
+  id        String   @id @default(uuid())
+  fullname  String?  @db.VarChar(50)
+  phone     String?  @db.VarChar(15)
+  birth     DateTime?
+  no_nik    String?  @db.VarChar(20)
+  gender    String?  @db.VarChar(10)
+  user_id   String
+  createdAt DateTime     @default(now())    // Default to current timestamp when created
+  updatedAt DateTime     @updatedAt         // Automatically updates to current timestamp when modified
+  
+  user        User        @relation(fields: [user_id], references: [id])
+  
+  address   Address[]
+  @@map("contacts")
+}
+
+
+model Address {
+  id          String   @id @default(uuid())
+  street      String   @db.VarChar(100)
+  city        String   @db.VarChar(50)
+  province    String?  @db.VarChar(50)
+  country     String   @db.VarChar(50)
+  postalCode  String?  @db.VarChar(10)
+  contact_id  String
+  createdAt   DateTime     @default(now())    // Default to current timestamp when created
+  updatedAt   DateTime     @updatedAt
+
+  contact     Contact   @relation(fields: [contact_id], references: [id])
+  @@map("addresses")
+}
+
+model Store {
+  id          String   @id @default(uuid())
+  name        String   @db.VarChar(20)
+  description String?  @db.VarChar(255)
+  location    String?  @db.VarChar(100)
+  createdAt   DateTime     @default(now())    // Default to current timestamp when created
+  updatedAt   DateTime     @updatedAt
+
+  product Product[]
+  @@map("stores")
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String?  @db.VarChar(255)
+  image_url   String?
+  price       Float
+  stok        Int
+  store_id    String
+  createdAt   DateTime     @default(now())    // Default to current timestamp when created
+  updatedAt   DateTime     @updatedAt
+  category_id String
+
+  order Order[]
+  review  Review[]
+  discount  Discount[]
+  category    Category @relation(fields: [category_id], references: [id])
+  store       Store     @relation(fields: [store_id], references: [id])
+  @@map("products")
+}
+
+model Order {
+  id          String   @id @default(uuid())
+  order_id    String   @db.VarChar(20)
+  user_id     String   
+  product_id  String   
+  qty         Int
+  total_price Float
+  status      String   @db.VarChar(20)
+  createdAt   DateTime     @default(now())    // Default to current timestamp when created
+  updatedAt   DateTime     @updatedAt
+
+  payment Payment[]
+  shipment Shipment[]
+  user        User       @relation(fields: [user_id], references: [id])
+  product     Product    @relation(fields: [product_id], references: [id])
+
+  @@map("orders")
+}
+
+model Payment {
+  id           String   @id @default(uuid())
+  order_id     String
+  payment_method String @db.VarChar(20)  // e.g., "Credit Card", "PayPal"
+  payment_status String @db.VarChar(20)  // e.g., "Pending", "Completed", "Failed"
+  payment_url  String   @db.VarChar(100)
+  amount       Float
+  createdAt    DateTime     @default(now())    // Default to current timestamp when created
+  updatedAt    DateTime     @updatedAt
+
+  
+  order        Order    @relation(fields: [order_id], references: [id])
+
+  @@map("payments")
+}
+
+model Shipment {
+  id            String   @id @default(uuid())
+  order_id      String
+  courier       String   @db.VarChar(50)   // e.g., "DHL", "FedEx"
+  tracking_number String?  @db.VarChar(50)
+  status        String   @db.VarChar(20)   // e.g., "Shipped", "In Transit", "Delivered"
+  createdAt     DateTime     @default(now())    // Default to current timestamp when created
+  updatedAt     DateTime     @updatedAt
+
+  order         Order    @relation(fields: [order_id], references: [id])
+
+  @@map("shipments")
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String   @db.VarChar(50)
+  description String?  @db.VarChar(255)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  products    Product[]
+
+  @@map("categories")
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  product_id  String
+  user_id     String
+  rating      Int       // Range 1-5
+  comment     String?   @db.VarChar(255)
+  createdAt   DateTime      @default(now())
+
+  product     Product   @relation(fields: [product_id], references: [id])
+  user        User      @relation(fields: [user_id], references: [id])
+
+  @@map("reviews")
+}
+
+model Discount {
+  id          String   @id @default(uuid())
+  product_id  String
+  percentage  Float    // E.g., 10.5% discount
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  product     Product  @relation(fields: [product_id], references: [id])
+
+  @@map("discounts")
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  action      String   @db.VarChar(50)  // e.g., "Created", "Updated", "Deleted"
+  entity      String   @db.VarChar(50)  // e.g., "Order", "Product"
+  entity_id   String
+  user_id     String
+  device      String   @db.VarChar(100) // Panjang sesuai kebutuhan untuk nama perangkat
+  device_ip   String   @db.VarChar(45)  // IP address (IPv4 atau IPv6), panjang 45 untuk IPv6
+  detail      String?  @db.VarChar(255) // Optional: additional details like old and new values
+  createdAt   DateTime     @default(now())
+
+  user        User     @relation(fields: [user_id], references: [id])
+
+  @@map("audit_logs")
+}
+
+
