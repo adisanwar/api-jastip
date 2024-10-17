@@ -1,144 +1,205 @@
 import { prismaClient } from "../application/database";
-import { CreateContactRequest, UpdateContactRequest, ContactResponse, toContactResponse, SearchContactRequest } from "../model/contact-model";
+import {
+  CreateContactRequest,
+  UpdateContactRequest,
+  ContactResponse,
+  toContactResponse,
+  SearchContactRequest,
+} from "../model/contact-model";
 import { Validation } from "../validation/validation";
 import { ContactValidation } from "../validation/contact-validation";
 import { Contact, User } from "@prisma/client";
-import { ResponseError } from "../error/response-error";
+import { ResponseError } from "../response/response-error";
 import { Pageable } from "../model/page";
 import fs from "fs";
 import path from "path";
 
 export class ContactService {
-    static async create(user: User, request: CreateContactRequest): Promise<ContactResponse> {
-        const createRequest = Validation.validate(ContactValidation.CREATE, request);
+  static async create(
+    user: User,
+    request: CreateContactRequest
+  ): Promise<ContactResponse> {
+    const createRequest = Validation.validate(
+      ContactValidation.CREATE,
+      request
+    );
 
-        const record: any = {
-            ...createRequest,
-            ...{ username: user.username }
-        };
+    const record: any = {
+      ...createRequest,
+      ...{ id: user.id },
+    };
 
-        const contact = await prismaClient.contact.create({
-            data: record
-        });
+    const contact = await prismaClient.contact.create({
+      data: record,
+    });
 
-        return toContactResponse(contact);
+    return toContactResponse(contact);
+  }
+
+  static async checkContactMustExists(
+    userId: string,
+    contactId: string
+  ): Promise<Contact> {
+    const contact = await prismaClient.contact.findFirst({
+      where: {
+        id: contactId,
+        user_id: userId,
+      },
+    });
+
+    if (!contact) {
+      throw new ResponseError(404, "Contact not found");
     }
 
-    static async checkContactMustExists(username: string, contactId: number): Promise<Contact> {
-        const contact = await prismaClient.contact.findFirst({
-            where: {
-                id: contactId,
-                username: username
-            }
-        });
+    return contact;
+  }
 
-        if (!contact) {
-            throw new ResponseError(404, "Contact not found");
-        }
+  static async get(user: User, id: string): Promise<ContactResponse> {
+    const contact = await this.checkContactMustExists(user.username, id);
+    return toContactResponse(contact);
+  }
 
-        return contact;
+  static async update(
+    user: User,
+    request: UpdateContactRequest
+  ): Promise<ContactResponse> {
+    const updateRequest: any = Validation.validate(
+      ContactValidation.UPDATE,
+      request
+    );
+    await this.checkContactMustExists(user.id, updateRequest.id);
+
+    const contact = await prismaClient.contact.update({
+      where: {
+        id: updateRequest.id,
+        user_id: user.id,
+      },
+      data: updateRequest,
+    });
+
+    return toContactResponse(contact);
+  }
+
+  static async remove(user: User, id: string): Promise<ContactResponse> {
+    const contact = await this.checkContactMustExists(user.username, id);
+
+    if (contact.image) {
+      fs.unlinkSync(path.resolve(contact.image)); // Remove the photo file if it exists
     }
 
-    static async get(user: User, id: number): Promise<ContactResponse> {
-        const contact = await this.checkContactMustExists(user.username, id);
-        return toContactResponse(contact);
+    const deletedContact = await prismaClient.contact.delete({
+      where: {
+        id: id,
+        user_id: user.id,
+      },
+    });
+
+    return toContactResponse(deletedContact);
+  }
+
+  // static async search(user: User, request: SearchContactRequest): Promise<Pageable<ContactResponse>> {
+  //     const searchRequest = Validation.validate(ContactValidation.SEARCH, request);
+  //     const skip = (searchRequest.page - 1) * searchRequest.size;
+
+  //     const filters = [];
+  //     if (searchRequest.name) {
+  //         filters.push({
+  //             OR: [
+  //                 {
+  //                     fullname: {
+  //                         contains: searchRequest.name
+  //                     },
+  //                 },
+  //             ]
+  //         });
+  //     }
+  //     if (searchRequest.email) {
+  //         filters.push({
+  //             email: {
+  //                 contains: searchRequest.email
+  //             }
+  //         });
+  //     }
+  //     if (searchRequest.phone) {
+  //         filters.push({
+  //             phone: {
+  //                 contains: searchRequest.phone
+  //             }
+  //         });
+  //     }
+
+  //     const contacts = await prismaClient.contact.findMany({
+  //         where: {
+  //             user_id: user.id,
+  //             AND: filters
+  //         },
+  //         take: searchRequest.size,
+  //         skip: skip
+  //     });
+
+  //     const total = await prismaClient.contact.count({
+  //         where: {
+  //             user_id: user.id,
+  //             AND: filters
+  //         },
+  //     });
+
+  //     return {
+  //         data: contacts.map(contact => toContactResponse(contact)),
+  //         paging: {
+  //             current_page: searchRequest.page,
+  //             total_page: Math.ceil(total / searchRequest.size),
+  //             size: searchRequest.size
+  //         }
+  //     };
+  // }
+
+  static async search(
+    user: User,
+    request: SearchContactRequest
+  ): Promise<Pageable<ContactResponse>> {
+    const searchRequest = Validation.validate(
+      ContactValidation.SEARCH,
+      request
+    );
+    const skip = (searchRequest.page - 1) * searchRequest.size;
+
+    // Membangun filter langsung sebagai objek, bukan array
+    const filters: any = {
+      user_id: user.id, // Pastikan kontak milik user yang sedang login
+    };
+
+    // Menambahkan kondisi filter berdasarkan input
+    if (searchRequest.name) {
+      filters.fullname = { contains: searchRequest.name };
+    }
+    if (searchRequest.email) {
+      filters.email = { contains: searchRequest.email };
+    }
+    if (searchRequest.phone) {
+      filters.phone = { contains: searchRequest.phone };
     }
 
-    // static async getByUsername(username: string): Promise<ContactResponse> {
-    //     const contact: any =await prismaClient.contact.findFirst({
-    //         where: { 
-    //             username : username 
-    //         }
-    //     })
-    //     return toContactResponse(contact);
-    // }
+    // Query untuk mengambil data kontak
+    const contacts = await prismaClient.contact.findMany({
+      where: filters,
+      take: searchRequest.size,
+      skip: skip,
+    });
 
-    static async update(user: User, request: UpdateContactRequest): Promise<ContactResponse> {
-        const updateRequest: any = Validation.validate(ContactValidation.UPDATE, request);
-        await this.checkContactMustExists(user.username, updateRequest.id);
+    // Query untuk menghitung total kontak yang cocok dengan filter
+    const total = await prismaClient.contact.count({
+      where: filters,
+    });
 
-        const contact = await prismaClient.contact.update({
-            where: {
-                id: updateRequest.id,
-                username: user.username
-            },
-            data: updateRequest
-        });
-
-        return toContactResponse(contact);
-    }
-
-    static async remove(user: User, id: number): Promise<ContactResponse> {
-        const contact = await this.checkContactMustExists(user.username, id);
-
-        if (contact.photo) {
-            fs.unlinkSync(path.resolve(contact.photo)); // Remove the photo file if it exists
-        }
-
-        const deletedContact = await prismaClient.contact.delete({
-            where: {
-                id: id,
-                username: user.username
-            }
-        });
-
-        return toContactResponse(deletedContact);
-    }
-
-    static async search(user: User, request: SearchContactRequest): Promise<Pageable<ContactResponse>> {
-        const searchRequest = Validation.validate(ContactValidation.SEARCH, request);
-        const skip = (searchRequest.page - 1) * searchRequest.size;
-
-        const filters = [];
-        if (searchRequest.name) {
-            filters.push({
-                OR: [
-                    {
-                        fullname: {
-                            contains: searchRequest.name
-                        },
-                    },
-                ]
-            });
-        }
-        if (searchRequest.email) {
-            filters.push({
-                email: {
-                    contains: searchRequest.email
-                }
-            });
-        }
-        if (searchRequest.phone) {
-            filters.push({
-                phone: {
-                    contains: searchRequest.phone
-                }
-            });
-        }
-
-        const contacts = await prismaClient.contact.findMany({
-            where: {
-                username: user.username,
-                AND: filters
-            },
-            take: searchRequest.size,
-            skip: skip
-        });
-
-        const total = await prismaClient.contact.count({
-            where: {
-                username: user.username,
-                AND: filters
-            },
-        });
-
-        return {
-            data: contacts.map(contact => toContactResponse(contact)),
-            paging: {
-                current_page: searchRequest.page,
-                total_page: Math.ceil(total / searchRequest.size),
-                size: searchRequest.size
-            }
-        };
-    }
+    // Mengembalikan response dalam format paginated
+    return {
+      data: contacts.map((contact) => toContactResponse(contact)),
+      paging: {
+        current_page: searchRequest.page,
+        total_page: Math.ceil(total / searchRequest.size),
+        size: searchRequest.size,
+      },
+    };
+  }
 }

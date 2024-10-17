@@ -28,9 +28,20 @@ export class UserService {
         // Cek apakah username sudah ada di database
         const totalUserWithSameUsername = await prismaClient.user.count({
             where: {
-                id: registerRequest.id
+                username: registerRequest.username
             }
         });
+
+         // Cek apakah username sudah ada di database
+         const cekEmail = await prismaClient.user.count({
+            where: {
+                email: registerRequest.email
+            }
+        });
+
+        if (cekEmail > 0) {
+            throw ResponseError.badRequest("Email already exists");
+        }
     
         if (totalUserWithSameUsername > 0) {
             throw ResponseError.badRequest("Username already exists");
@@ -43,11 +54,6 @@ export class UserService {
         const user = await prismaClient.user.create({
             data: registerRequest
         });
-    
-        // Mengonversi objek user ke format UserResponse
-        // const userResponse: UserResponse = toUserResponse(user);
-    
-        // Mengembalikan respons sukses dengan data user yang baru dibuat
         return toUserResponse (registerRequest);
     }
     
@@ -100,14 +106,12 @@ export class UserService {
     }
     
 
-    static async update(user: User, request: UpdateUserRequest): Promise<ResponseSuccess> {
+    static async update(user: User, request: UpdateUserRequest): Promise<UserResponse> {
         // Validasi input menggunakan Zod
         const updateRequest = Validation.validate(UserValidation.UPDATE, request);
     
-        // Cek apakah ada perubahan pada name
-        if (updateRequest.id) {
-            user.id = updateRequest.id;
-        }
+        // Pastikan untuk menggunakan ID user yang sedang login jika tidak disediakan dalam request
+        const userId = updateRequest.id || user.id;
     
         // Jika password disediakan, hash password baru
         if (updateRequest.password) {
@@ -118,22 +122,26 @@ export class UserService {
             // Update user di database
             const result = await prismaClient.user.update({
                 where: {
-                    id: user.id
+                    id: userId
                 },
                 data: {
-                    username: user.username,
-                    password: user.password
+                    username: updateRequest.username ?? user.username,
+                    password: user.password,
+                    email: updateRequest.email ?? user.email,
+                    role: updateRequest.role ?? user.role,
+                    status: updateRequest.status ?? user.status
                 }
             });
     
             // Mengembalikan response sukses
-            return ResponseSuccess.success(toUserResponse(result), "User updated successfully");
+            return toUserResponse(result);
     
         } catch (error) {
             // Menangani kesalahan jika update gagal
             throw ResponseError.serverError("Failed to update user");
         }
     }
+    
     
 
     static async logout(user: User): Promise<ResponseSuccess> {
@@ -187,55 +195,6 @@ export class UserService {
         return ResponseSuccess.success(toUserResponse(user), "User retrieved successfully");
     }
     
-    
-
-    static async updateUser(username: string, request: UpdateUserRequest): Promise<ResponseSuccess> {
-        // Validate the update request
-        const updateRequest = Validation.validate(UserValidation.UPDATE, request);
-    
-        // Find the existing user
-        const existingUser = await prismaClient.user.findUnique({
-            where: {
-                username: username
-            }
-        });
-    
-        if (!existingUser) {
-            throw ResponseError.notFound("User not found");
-        }
-    
-        // Create an update data object
-        const updateData: any = {};
-    
-        // Update the properties if provided
-        if (updateRequest.username) {
-            updateData.username = updateRequest.username;
-        }
-    
-        if (updateRequest.password) {
-            updateData.password = await bcrypt.hash(updateRequest.password, 10);
-        }
-    
-        // Update role if provided
-        if (updateRequest.role !== undefined) {
-            updateData.role = updateRequest.role;
-        }
-    
-        // Update the user with new data
-        const updatedUser = await prismaClient.user.update({
-            where: {
-                id: existingUser.id // Use the ID of the existing user
-            },
-            data: updateData
-        });
-    
-        // Return success response with updated user data
-        return ResponseSuccess.success(toUserResponse(updatedUser), "User updated successfully");
-    }
-    
-    
-    
-
     static async delete(id: string): Promise<void> {
         // Find the existing user
         const existingUser = await prismaClient.user.findUnique({

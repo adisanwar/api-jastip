@@ -2,7 +2,7 @@ import { Request } from 'express';
 import path from 'path';
 import multer from 'multer';
 import fs from 'fs';
-import { ResponseError } from '../error/response-error';
+import { ResponseError } from '../response/response-error';
 
 const projectRoot = path.join(__dirname, '..', '..'); // Adjust to your project structure
 
@@ -100,11 +100,11 @@ export function deleteOldFile(filePath: string | undefined | null) {
 
 
 
-export function handleFileUpload(req: Request, requestBody: any) {
-  if (req.file) {
-    const entityType = req.body.entityType;
-    const imagePath = path.join(getDestinationFolder(entityType), req.file.filename);
-    const relativePath = path.relative(projectRoot, imagePath);
-    requestBody.photo = path.normalize(relativePath).replace(/\\/g, '/'); // Replace backslashes with forward slashes for consistency
-  }
-}
+// export function handleFileUpload(req: Request, requestBody: any) {
+//   if (req.file) {
+//     const entityType = req.body.entityType;
+//     const imagePath = path.join(getDestinationFolder(entityType), req.file.filename);
+//     const relativePath = path.relative(projectRoot, imagePath);
+//     requestBody.photo = path.normalize(relativePath).replace(/\\/g, '/'); // Replace backslashes with forward slashes for consistency
+//   }
+// }

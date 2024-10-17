@@ -4,10 +4,10 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "adi",
+  "username": "adiganteng1",
   "password" : "adi123",
   "role" : "customer",
-  "email" : "adi@adi.com"
+  "email" : "adi@adi2.com"
 }
 
 ### Login User
@@ -17,7 +17,7 @@ Accept: application/json
 
 {
   "username": "adi",
-  "password" : "adi123"
+  "password" : "rahasia"
 }
 
 ### Login User
@@ -33,28 +33,48 @@ Accept: application/json
 ### Get User
 GET http://localhost:3000/api/users/current
 Accept: application/json
-X-API-TOKEN: 69b5546a-85a8-4f16-90a7-4b992bc89aaa
+X-API-TOKEN: 3c3a6831-c1c6-4045-9b8d-54bce8af33b6
+
+### Get All User
+GET http://localhost:3000/api/users
+Accept: application/json
+X-API-TOKEN: 3c3a6831-c1c6-4045-9b8d-54bce8af33b6
 
 ### Logout User
 DELETE http://localhost:3000/api/users/current
 Accept: application/json
-X-API-TOKEN: 69b5546a-85a8-4f16-90a7-4b992bc89aaa
+X-API-TOKEN: 4e5eaf96-cb79-4789-b373-de0b4a3f2615
 
 ### Update User
 PATCH http://localhost:3000/api/users/current
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 69b5546a-85a8-4f16-90a7-4b992bc89aaa
+X-API-TOKEN: 9caeb2fa-76fa-492c-aa1d-4339a62521ea
 
 {
-  "status" : "active"
+  "status" : true
 }
+
+### Remove Users
+DELETE http://localhost:3000/api/users/dc929fdc-96ef-4fd7-b1fe-aaff31e6985d
+Accept: application/json
+X-API-TOKEN: 3c3a6831-c1c6-4045-9b8d-54bce8af33b6
 
 ### Update User Password
 PATCH http://localhost:3000/api/users/current
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 33acb47e-545b-4a2b-b27c-c0ba8196627f
+X-API-TOKEN: 9caeb2fa-76fa-492c-aa1d-4339a62521ea
+
+{
+  "password" : "rahasia"
+}
+
+### Update User byId
+PATCH http://localhost:3000/api/users/current
+Accept: application/json
+Content-Type: application/json
+X-API-TOKEN: 9caeb2fa-76fa-492c-aa1d-4339a62521ea
 
 {
   "password" : "rahasia"

@@ -50,7 +50,19 @@ export class UserController {
           next(e);
         }
       }
-    
+
+     // Get all users
+    static async getAll(req: Request, res: Response, next: NextFunction) {
+        try {
+            const response = await UserService.getAll();
+            res.status(200).json({
+                data: response
+            });
+        } catch (e) {
+            next(e);
+        }
+    }
+
       // Update method
       static async update(req: UserRequest, res: Response, next: NextFunction) {
         try {
@@ -78,66 +90,30 @@ export class UserController {
         }
       }
 
-    // Get all users
-    static async getAll(req: Request, res: Response, next: NextFunction) {
-        try {
-            const response = await UserService.getAll();
-            res.status(200).json({
-                data: response
-            });
-        } catch (e) {
-            next(e);
-        }
-    }
+   
 
-    // Get user by username
-    static async getById(req: Request, res: Response, next: NextFunction) {
-        try {
-            const username: string = req.params.username;
-            console.log(username);
-            if (!username) {
-                throw new ResponseError(400, "Username is required");
-            }
-            const response = await UserService.getById(username);
-            res.status(200).json({
-                data: response
-            });
-        } catch (e) {
-            next(e);
-        }
-    }
-    
-
-    // Remove user by username (new method)
-    // static async deleteUser(req: Request, res: Response, next: NextFunction) {
+    // // Get user by username
+    // static async getById(req: Request, res: Response, next: NextFunction) {
     //     try {
-    //         const request: RemoveUserRequest = { username: req.params.username };
-    //         await UserService.delete(request.username);
-    //         res.status(204).send(); // No Content on successful deletion
+    //         const username: string = req.params.username;
+    //         console.log(username);
+    //         if (!username) {
+    //             throw new ResponseError(400, "Username is required");
+    //         }
+    //         const response = await UserService.getById(username);
+    //         res.status(200).json({
+    //             data: response
+    //         });
     //     } catch (e) {
     //         next(e);
     //     }
     // }
-
-    static async updateUser(req: Request, res: Response, next: NextFunction) {
-        try {
-            const username: string = req.params.username; // Ensure username is a string
-            const request: UpdateUserRequest = req.body as UpdateUserRequest;
-            const response = await UserService.updateUser(username, request);
-            res.status(200).json({
-                data: response
-            });
-        } catch (e) {
-            next(e);
-        }
-    }
     
-
     static async delete(req: Request, res: Response, next: NextFunction) {
         try {
-            const username: string = req.params.username;
-            console.log(username)
-            await UserService.delete(username);
+            const userId: string = req.params.userId;
+            console.log(userId)
+            await UserService.delete(userId);
             res.status(200).json({
                 data : 'User Deleted'
             });

@@ -20,7 +20,8 @@ export type CreateContactRequest = {
 }
 
 export type UpdateContactRequest = {
-    fullname: string;
+    id: string;
+    fullname: string | null;
     image?: string | null;
     phone?: string | null;
     gender?: string | null;
