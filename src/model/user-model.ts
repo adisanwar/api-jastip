@@ -28,6 +28,7 @@ export type LoginUserRequest = {
 }
 
 export type UpdateUserRequest = {
+    id: string;
     username: string;
     password: string;
     email?: string | null;
