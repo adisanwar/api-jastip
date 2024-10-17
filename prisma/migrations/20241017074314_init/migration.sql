@@ -2,11 +2,11 @@
 CREATE TABLE `users` (
     `id` VARCHAR(191) NOT NULL,
     `username` VARCHAR(30) NOT NULL,
-    `password` VARCHAR(30) NOT NULL,
-    `email` VARCHAR(50) NOT NULL,
+    `password` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(50) NULL,
     `status` BOOLEAN NULL,
     `role` VARCHAR(10) NOT NULL,
-    `token` VARCHAR(30) NULL,
+    `token` VARCHAR(50) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 

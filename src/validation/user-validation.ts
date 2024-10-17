@@ -10,10 +10,10 @@ export class UserValidation {
     });
 
     static readonly LOGIN: ZodType = z.object({
-        username: z.string().min(1).max(30),
-        password: z.string().min(1).max(30),
+        username: z.string().min(1).max(30).optional(),
+        password: z.string().min(1).max(30).optional(),
         email: z.string().min(1).max(30).optional(),
-        role: z.string().min(1).max(30),
+        role: z.string().min(1).max(30).optional()
     });
 
     static readonly UPDATE: ZodType = z.object({

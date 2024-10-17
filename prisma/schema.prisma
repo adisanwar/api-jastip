@@ -16,11 +16,11 @@ datasource db {
 model User {
   id        String   @id @default(uuid())
   username  String   @unique @db.VarChar(30)
-  password  String   @db.VarChar(30)
-  email     String   @db.VarChar(50)
+  password  String   @db.VarChar(100)
+  email     String?   @db.VarChar(50)
   status    Boolean?
   role      String   @db.VarChar(10)
-  token     String?  @db.VarChar(30)
+  token     String?  @db.VarChar(50)
   createdAt DateTime     @default(now())    // Default to current timestamp when created
   updatedAt DateTime     @updatedAt         // Automatically updates to current timestamp when modified
 

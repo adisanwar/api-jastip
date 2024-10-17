@@ -16,7 +16,7 @@ import { ResponseSuccess } from "../response/response-success";
 
 export class UserService {
 
-    static async register(request: CreateUserRequest): Promise<ResponseSuccess> {
+    static async register(request: CreateUserRequest): Promise<UserResponse> {
         // Validasi input menggunakan Zod
         const registerRequest: any = Validation.validate(UserValidation.REGISTER, request);
     
@@ -45,15 +45,15 @@ export class UserService {
         });
     
         // Mengonversi objek user ke format UserResponse
-        const userResponse: UserResponse = toUserResponse(user);
+        // const userResponse: UserResponse = toUserResponse(user);
     
         // Mengembalikan respons sukses dengan data user yang baru dibuat
-        return ResponseSuccess.created(userResponse, "User registered successfully");
+        return toUserResponse (registerRequest);
     }
     
     
 
-    static async login(request: LoginUserRequest): Promise<ResponseSuccess> {
+    static async login(request: LoginUserRequest): Promise<UserResponse> {
         // Validasi input menggunakan Zod
         const loginRequest = Validation.validate(UserValidation.LOGIN, request);
 
@@ -77,16 +77,13 @@ export class UserService {
             throw ResponseError.unauthorized("Username/Email or password is wrong");
         }
 
-        // Generate token baru
-        const newToken = uuid();
-
         // Update user dengan token baru
         const updatedUser = await prismaClient.user.update({
             where: {
                 id: user.id
             },
             data: {
-                token: newToken
+                token: uuid()
             }
         });
 
@@ -95,12 +92,11 @@ export class UserService {
         response.token = updatedUser.token!;  // Token harus ada karena baru saja di-update
 
         // Mengembalikan respons sukses
-        return ResponseSuccess.success(response, "User logged in successfully");
+        return response;
     }
 
-    static async get(user: User): Promise<ResponseSuccess> {
-        const userResponse: UserResponse = toUserResponse(user);
-        return ResponseSuccess.success(userResponse, "User fetched successfully");
+    static async get(user: User): Promise<UserResponse> {
+        return toUserResponse(user);
     }
     
 
