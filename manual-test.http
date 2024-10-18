@@ -160,35 +160,42 @@ DELETE http://localhost:3000/api/contacts/79996ad0-2c64-4d49-8a49-7e91af48dcf1/a
 Accept: application/json
 X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
-### Create Theater
-POST http://localhost:3000/api/theaters
+### Create Store
+POST http://localhost:3000/api/stores
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: e2da7119-f7f8-41eb-91f8-5ac4e9d758c9
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 {
-  "name" : "Theater 1",
+  "name" : "Toko Berkah",
   "location" : "Test",
-  "capacity" : "250 Orang"
+  "description" : "sagala aya"
 }
 
-### get theater
-GET http://localhost:3000/api/theaters
+### get Stores
+GET http://localhost:3000/api/stores
 Accept: application/json
-X-API-TOKEN: fe8843f7-25f1-4106-a66e-1167d41cf1aa
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
-###
-PATCH http://localhost:3000/api/theaters/19
+
+### get Stores byId
+GET http://localhost:3000/api/stores/fe941a6d-56c6-45c4-b282-96057df47473
+Accept: application/json
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
+
+### Update Stores
+PATCH http://localhost:3000/api/stores/fe941a6d-56c6-45c4-b282-96057df47473
 Content-Type: application/json
-X-API-TOKEN: c9d88e2e-cc31-4cbc-ac80-e793ac2acad7
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 {
-  "name" : "FX Sudirman"
+  "name" : "Toko Berkah Jaya",
+  "location" : "Test cuy",
+  "description" : "sagala aya cuy"
 }
 
-
-### Remove Theater
-DELETE http://localhost:3000/api/theaters/128
+### Remove Store
+DELETE http://localhost:3000/api/stores/128
 Accept: application/json
 X-API-TOKEN: 403cbaf6-af16-4d58-b82a-ca9f81940a59
 

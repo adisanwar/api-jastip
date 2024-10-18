@@ -3,7 +3,7 @@ import {authMiddleware} from "../middleware/auth-middleware";
 import {UserController} from "../controller/user-controller";
 import {ContactController} from "../controller/contact-controller";
 import {AddressController} from "../controller/address-controller";
-// import { TheaterController } from "../controller/theater-controller";
+import { StoreController } from "../controller/store-controller";
 // import { ShowController } from "../controller/show-controller";
 // import { uploadMiddleware } from "../middleware/upload-middleware";
 // import {ShowtimeController} from "../controller/showtime-controller";
@@ -38,12 +38,12 @@ apiRouter.patch("/api/contacts/:contactId/addresses/:addressId", AddressControll
 apiRouter.delete("/api/contacts/:contactId/addresses/:addressId", AddressController.remove);
 apiRouter.get("/api/contacts/:contactId/addresses", AddressController.list);
 
-// // Theater Api
-// apiRouter.post("/api/theaters", uploadMiddleware, TheaterController.create);
-// apiRouter.get("/api/theaters/current", TheaterController.get);
-// apiRouter.get('/api/theaters/:theaterId(\\d+)', TheaterController.getById);
-// apiRouter.patch('/api/theaters/:theaterId(\\d+)',uploadMiddleware,  TheaterController.update)
-// apiRouter.delete('/api/theaters/:theaterId(\\d+)', TheaterController.remove);
+// // Store Api
+apiRouter.post("/api/stores",  StoreController.create);
+apiRouter.get("/api/stores/", StoreController.get);
+apiRouter.get('/api/stores/:storeId', StoreController.getById);
+apiRouter.patch('/api/stores/:storeId', StoreController.update)
+apiRouter.delete('/api/stores/:storeId', StoreController.remove);
 
 // // Show Api
 // apiRouter.post("/api/shows/",uploadMiddleware, ShowController.create);
