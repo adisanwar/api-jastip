@@ -55,7 +55,7 @@ export class StoreController {
         }
     }
 
-    static async remove(req: TheaterRequest, res: Response, next: NextFunction) {
+    static async remove(req: Request, res: Response, next: NextFunction) {
         try {
             const request: RemoveStoreRequest = {
                 id: String(req.params.storeId)

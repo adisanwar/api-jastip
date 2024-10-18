@@ -3,9 +3,9 @@ import { z, ZodType } from "zod";
 export class StoreValidation {
 
     static readonly CREATE: ZodType = z.object({
-        name: z.string().min(1).max(255),
-        image: z.string().min(1).max(255).optional(),
-        description: z.string().min(1).max(100).optional(),
+        name: z.string().min(1).max(50),
+        image: z.string().min(1).max(100).optional(),
+        description: z.string().min(1).max(255).optional(),
         location : z.string().min(1).max(100).optional(),
     });
 
@@ -19,9 +19,9 @@ export class StoreValidation {
 
     static readonly UPDATE: ZodType = z.object({
         id: z.string().uuid(),
-        name: z.string().min(1).max(255).optional(),
-        image: z.string().min(1).max(255).optional(),
-        description: z.string().min(1).max(100).optional(),
+        name: z.string().min(1).max(50).optional(),
+        image: z.string().min(1).max(100).optional(),
+        description: z.string().min(1).max(255).optional(),
         location : z.string().min(1).max(100).optional(),
     });
 

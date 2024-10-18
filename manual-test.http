@@ -17,7 +17,7 @@ Accept: application/json
 
 {
   "username": "adi",
-  "password" : "adi123"
+  "password" : "rahasia"
 }
 
 ### Login User
@@ -67,7 +67,7 @@ Content-Type: application/json
 X-API-TOKEN: 9caeb2fa-76fa-492c-aa1d-4339a62521ea
 
 {
-  "password" : "rahasia"
+  "password" : "adi123"
 }
 
 ### Update User byId
@@ -164,7 +164,7 @@ X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 POST http://localhost:3000/api/stores
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
+X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
 
 {
   "name" : "Toko Berkah",
@@ -175,7 +175,7 @@ X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 ### get Stores
 GET http://localhost:3000/api/stores
 Accept: application/json
-X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
+X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
 
 
 ### get Stores byId
@@ -203,7 +203,7 @@ X-API-TOKEN: 403cbaf6-af16-4d58-b82a-ca9f81940a59
 POST http://localhost:3000/api/categories
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
+X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
 
 {
   "name" : "Alat Rumah Tangga",
@@ -237,7 +237,48 @@ Accept: application/json
 X-API-TOKEN: 403cbaf6-af16-4d58-b82a-ca9f81940a59
 
 
+### Create Product
+POST http://localhost:3000/api/products
+Accept: application/json
+Content-Type: application/json
+X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
 
+{
+  "name" : "Sapu",
+  "description" : "Parabot",
+  "price" : 10000,
+  "stok" : 2,
+  "category_id" : "dd7d820f-0ddd-4b77-ac72-70dc179e5cf6",
+  "store_id" : "09f9b185-c545-48f8-81d7-7d7a1255d2d1"
+}
+
+### get Product
+GET http://localhost:3000/api/products
+Accept: application/json
+X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+
+
+### get Product byId
+GET http://localhost:3000/api/products/0826c6f6-911d-4aea-a6bd-6d3f62c7ed87
+Accept: application/json
+X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+
+### Update Product
+PATCH http://localhost:3000/api/products/0826c6f6-911d-4aea-a6bd-6d3f62c7ed87
+Content-Type: application/json
+X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+
+{
+  "name" : "Pel",
+  "description" : "sagala aya cuy",
+  "category_id" : "dd7d820f-0ddd-4b77-ac72-70dc179e5cf6",
+  "store_id" : "09f9b185-c545-48f8-81d7-7d7a1255d2d1"
+}
+
+### Remove Product
+DELETE http://localhost:3000/api/products/128
+Accept: application/json
+X-API-TOKEN: 403cbaf6-af16-4d58-b82a-ca9f81940a59
 
 
 

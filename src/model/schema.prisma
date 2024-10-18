@@ -67,7 +67,7 @@ model Address {
 
 model Store {
   id          String   @id @default(uuid())
-  name        String   @db.VarChar(50)
+  name        String   @db.VarChar(20)
   description String?  @db.VarChar(255)
   location    String?  @db.VarChar(100)
   createdAt   DateTime     @default(now())    // Default to current timestamp when created
@@ -79,9 +79,9 @@ model Store {
 
 model Product {
   id          String   @id @default(uuid())
-  name        String   @db.VarChar(50)
+  name        String
   description String?  @db.VarChar(255)
-  image_url   String?  @db.VarChar(100)
+  image_url   String?
   price       Float
   stok        Int
   store_id    String
