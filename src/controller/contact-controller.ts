@@ -79,8 +79,7 @@ export class ContactController {
     static async search(req: UserRequest, res: Response, next: NextFunction) {
         try {
             const request: SearchContactRequest = {
-                name: req.query.name as string,
-                email: req.query.email as string,
+                fullname: req.query.fullname as string,
                 phone: req.query.phone as string,
                 page: req.query.page ? Number(req.query.page) : 1,
                 size: req.query.size ? Number(req.query.size) : 10,

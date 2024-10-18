@@ -2,7 +2,7 @@ import express from "express";
 import {authMiddleware} from "../middleware/auth-middleware";
 import {UserController} from "../controller/user-controller";
 import {ContactController} from "../controller/contact-controller";
-// import {AddressController} from "../controller/address-controller";
+import {AddressController} from "../controller/address-controller";
 // import { TheaterController } from "../controller/theater-controller";
 // import { ShowController } from "../controller/show-controller";
 // import { uploadMiddleware } from "../middleware/upload-middleware";
@@ -26,17 +26,17 @@ apiRouter.delete("/api/users/:userId", UserController.delete);
 
 // // Contact API
 apiRouter.post("/api/contacts", ContactController.create);
-apiRouter.get("/api/contacts/:contactId(\\d+)", ContactController.get);
-apiRouter.patch("/api/contacts/:contactId(\\d+)", ContactController.update);
-apiRouter.delete("/api/contacts/:contactId(\\d+)", ContactController.remove);
+apiRouter.get("/api/contacts/:contactId", ContactController.get);
+apiRouter.patch("/api/contacts/:contactId", ContactController.update);
+apiRouter.delete("/api/contacts/:contactId", ContactController.remove);
 apiRouter.get("/api/contacts", ContactController.search);
 
 // // Address API
-// apiRouter.post("/api/contacts/:contactId(\\d+)/addresses", AddressController.create);
-// apiRouter.get("/api/contacts/:contactId(\\d+)/addresses/:addressId(\\d+)", AddressController.get);
-// apiRouter.patch("/api/contacts/:contactId(\\d+)/addresses/:addressId(\\d+)", AddressController.update);
-// apiRouter.delete("/api/contacts/:contactId(\\d+)/addresses/:addressId(\\d+)", AddressController.remove);
-// apiRouter.get("/api/contacts/:contactId(\\d+)/addresses", AddressController.list);
+apiRouter.post("/api/contacts/:contactId/addresses", AddressController.create);
+apiRouter.get("/api/contacts/:contactId/addresses/:addressId", AddressController.get);
+apiRouter.patch("/api/contacts/:contactId/addresses/:addressId", AddressController.update);
+apiRouter.delete("/api/contacts/:contactId/addresses/:addressId", AddressController.remove);
+apiRouter.get("/api/contacts/:contactId/addresses", AddressController.list);
 
 // // Theater Api
 // apiRouter.post("/api/theaters", uploadMiddleware, TheaterController.create);

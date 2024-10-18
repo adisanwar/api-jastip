@@ -12,7 +12,7 @@ export class ContactValidation {
     });
 
     static readonly UPDATE : ZodType = z.object({
-        id: z.number().positive().optional(),
+        id: z.string().uuid(),
         fullname: z.string().min(1).max(50),
         image: z.string().min(1).max(50).optional(),
         phone: z.string().min(1).max(15).optional(),

@@ -17,7 +17,7 @@ Accept: application/json
 
 {
   "username": "adi",
-  "password" : "rahasia"
+  "password" : "adi123"
 }
 
 ### Login User
@@ -84,83 +84,81 @@ X-API-TOKEN: 9caeb2fa-76fa-492c-aa1d-4339a62521ea
 POST http://localhost:3000/api/contacts
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: e2da7119-f7f8-41eb-91f8-5ac4e9d758c9
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 {
   "fullname" : "Adit Ganteng",
-  "email": "eko@example.com",
   "phone" : "099123123213"
 }
 
 ### Update Contact
-PATCH http://localhost:3000/api/contacts/1
+PATCH http://localhost:3000/api/contacts/79996ad0-2c64-4d49-8a49-7e91af48dcf1
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 26dc44d0-bb3a-49da-b69e-bcaac388b086
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 {
   "fullname" : "Adi",
-  "email": "eko@example.com",
   "phone" : "099123123213"
 }
 
 ### Get Contact
 GET http://localhost:3000/api/contacts
 Accept: application/json
-X-API-TOKEN: 431430af-ab05-45c4-bcfe-0b7308cc5c36
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 ### Remove Contact
-DELETE http://localhost:3000/api/contacts/67
+DELETE http://localhost:3000/api/contacts/f6e92e69-20ef-423b-9631-4fed7ca528cc
 Accept: application/json
-X-API-TOKEN: 931a9050-ece8-4a06-9f8c-d1be3d10636c
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 ### Search Contact
 GET http://localhost:3000/api/contacts
 Accept: application/json
-X-API-TOKEN: 33acb47e-545b-4a2b-b27c-c0ba8196627f
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 ### Add Address
-POST http://localhost:3000/api/contacts/1/addresses
+POST http://localhost:3000/api/contacts/79996ad0-2c64-4d49-8a49-7e91af48dcf1/addresses
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 431430af-ab05-45c4-bcfe-0b7308cc5c36
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 {
   "street" : "Jalan B",
   "city": "Jakarta",
   "province" : "DKI Jakarta",
   "country" : "Indonesia",
-  "postal_code" : "13123"
+  "postalCode" : "13123"
 }
 
 ### Get Address
-GET http://localhost:3000/api/contacts/41/addresses/59
+GET http://localhost:3000/api/contacts/79996ad0-2c64-4d49-8a49-7e91af48dcf1/addresses/ea93f035-5a89-4fd5-80f1-f36a6259f9c5
 Accept: application/json
-X-API-TOKEN: 33acb47e-545b-4a2b-b27c-c0ba8196627f
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 ### Update Address
-PUT http://localhost:3000/api/contacts/41/addresses/41
+PATCH http://localhost:3000/api/contacts/79996ad0-2c64-4d49-8a49-7e91af48dcf1/addresses/ea93f035-5a89-4fd5-80f1-f36a6259f9c5
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 33acb47e-545b-4a2b-b27c-c0ba8196627f
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 {
   "street" : "Jalan C",
   "city": "Bandung",
   "province" : "Jawa Barat",
   "country" : "Indonesia",
-  "postal_code" : "34534"
+  "postalCode" : "34534"
 }
 
 ### List Address
-GET http://localhost:3000/api/contacts/41/addresses
+GET http://localhost:3000/api/contacts/79996ad0-2c64-4d49-8a49-7e91af48dcf1/addresses
 Accept: application/json
-X-API-TOKEN: 33acb47e-545b-4a2b-b27c-c0ba8196627f
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 ### Remove Address
-DELETE http://localhost:3000/api/contacts/41/addresses/59
+DELETE http://localhost:3000/api/contacts/79996ad0-2c64-4d49-8a49-7e91af48dcf1/addresses/ea93f035-5a89-4fd5-80f1-f36a6259f9c5
 Accept: application/json
-X-API-TOKEN: 33acb47e-545b-4a2b-b27c-c0ba8196627f
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 
 ### Create Theater
 POST http://localhost:3000/api/theaters

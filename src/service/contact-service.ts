@@ -26,7 +26,7 @@ export class ContactService {
 
     const record: any = {
       ...createRequest,
-      ...{ id: user.id },
+      user_id: user.id,  // Hubungkan kontak dengan user melalui user_id
     };
 
     const contact = await prismaClient.contact.create({
@@ -43,7 +43,6 @@ export class ContactService {
     const contact = await prismaClient.contact.findFirst({
       where: {
         id: contactId,
-        user_id: userId,
       },
     });
 
@@ -72,7 +71,6 @@ export class ContactService {
     const contact = await prismaClient.contact.update({
       where: {
         id: updateRequest.id,
-        user_id: user.id,
       },
       data: updateRequest,
     });
