@@ -199,6 +199,60 @@ DELETE http://localhost:3000/api/stores/128
 Accept: application/json
 X-API-TOKEN: 403cbaf6-af16-4d58-b82a-ca9f81940a59
 
+### Create category
+POST http://localhost:3000/api/categories
+Accept: application/json
+Content-Type: application/json
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
+
+{
+  "name" : "Alat Rumah Tangga",
+  "description" : "Parabot"
+}
+
+### get Categories
+GET http://localhost:3000/api/categories
+Accept: application/json
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
+
+
+### get Categories byId
+GET http://localhost:3000/api/categories/1c10812d-e5b0-45fe-90df-05dc2802457a
+Accept: application/json
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
+
+### Update Categories
+PATCH http://localhost:3000/api/categories/1c10812d-e5b0-45fe-90df-05dc2802457a
+Content-Type: application/json
+X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
+
+{
+  "name" : "Toko Berkah Jaya",
+  "description" : "sagala aya cuy"
+}
+
+### Remove Categories
+DELETE http://localhost:3000/api/categories/128
+Accept: application/json
+X-API-TOKEN: 403cbaf6-af16-4d58-b82a-ca9f81940a59
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Create Showtime
 POST http://localhost:3000/api/showtimes

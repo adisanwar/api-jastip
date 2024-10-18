@@ -4,7 +4,7 @@ import {UserController} from "../controller/user-controller";
 import {ContactController} from "../controller/contact-controller";
 import {AddressController} from "../controller/address-controller";
 import { StoreController } from "../controller/store-controller";
-// import { ShowController } from "../controller/show-controller";
+import { CategoryController } from "../controller/category-controller";
 // import { uploadMiddleware } from "../middleware/upload-middleware";
 // import {ShowtimeController} from "../controller/showtime-controller";
 // import { TicketController } from "../controller/ticket-controller";
@@ -44,6 +44,13 @@ apiRouter.get("/api/stores/", StoreController.get);
 apiRouter.get('/api/stores/:storeId', StoreController.getById);
 apiRouter.patch('/api/stores/:storeId', StoreController.update)
 apiRouter.delete('/api/stores/:storeId', StoreController.remove);
+
+// // Store Api
+apiRouter.post("/api/categories",  CategoryController.create);
+apiRouter.get("/api/categories/", CategoryController.get);
+apiRouter.get('/api/categories/:categoryId', CategoryController.getById);
+apiRouter.patch('/api/categories/:categoryId', CategoryController.update)
+apiRouter.delete('/api/categories/:categoryId', CategoryController.remove);
 
 // // Show Api
 // apiRouter.post("/api/shows/",uploadMiddleware, ShowController.create);
