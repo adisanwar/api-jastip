@@ -6,6 +6,7 @@ import {AddressController} from "../controller/address-controller";
 import { StoreController } from "../controller/store-controller";
 import { CategoryController } from "../controller/category-controller";
 import { ProductController } from "../controller/product-controller";
+import { OrderController } from "../controller/order-controller";
 // import { uploadMiddleware } from "../middleware/upload-middleware";
 // import {ShowtimeController} from "../controller/showtime-controller";
 // import { TicketController } from "../controller/ticket-controller";
@@ -59,6 +60,13 @@ apiRouter.get("/api/products/", ProductController.get);
 apiRouter.get('/api/products/:productId', ProductController.getById);
 apiRouter.patch('/api/products/:productId', ProductController.update)
 apiRouter.delete('/api/products/:productId', ProductController.remove);
+
+// // ORDER Api
+apiRouter.post("/api/orders",  OrderController.create);
+apiRouter.get("/api/orders/", OrderController.get);
+apiRouter.get('/api/orders/:orderId', OrderController.getById);
+apiRouter.patch('/api/orders/:orderId', OrderController.update)
+apiRouter.delete('/api/orders/:orderId', OrderController.remove);
 
 // // Show Api
 // apiRouter.post("/api/shows/",uploadMiddleware, ShowController.create);

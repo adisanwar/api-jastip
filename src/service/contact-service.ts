@@ -54,7 +54,7 @@ export class ContactService {
   }
 
   static async get(user: User, id: string): Promise<ContactResponse> {
-    const contact = await this.checkContactMustExists(user.username, id);
+    const contact = await this.checkContactMustExists(user.id, id);
     return toContactResponse(contact);
   }
 
