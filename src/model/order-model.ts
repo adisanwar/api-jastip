@@ -12,8 +12,8 @@ export type OrderResponse = {
 
 export type CreateOrderRequest = {
     id: string;
-    qty: number | null;
-    total_price: number | null;
+    qty: number;
+    total_price: number;
     status: string | null;
     order_id: string;
     user_id: string;
