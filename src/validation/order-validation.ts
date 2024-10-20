@@ -24,7 +24,6 @@ export class OrderValidation {
         total_price: z.number(),
         status: z.string().min(1).max(255),
         order_id: z.string().min(1).max(100),
-        user_id: z.string().min(1).max(100),
         product_id: z.string().min(1).max(100),
     });
 

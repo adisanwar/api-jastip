@@ -48,11 +48,11 @@ export class OrderService {
         return product;
     }
 
-    static async checkOrderMustExists(orderId: string, userId: string): Promise<Order> {
+    static async checkOrderMustExists(orderId: string, user: User): Promise<Order> {
         const order = await prismaClient.order.findFirst({
           where: {
             id: orderId,
-            user_id: userId
+            user_id: user.id
           },
         });
     
@@ -67,8 +67,13 @@ export class OrderService {
         return Order;
     }
 
-    static async getById(orderId: string, user: User): Promise<OrderResponse> {
-        const Order = await this.checkOrderMustExists(user.id, orderId);
+    static async getById(orderId: string): Promise<OrderResponse> {
+        const Order : any= await prismaClient.order.findFirst({
+            where: {
+              id: orderId,
+
+            },
+        });
         return toOrderResponse(Order);
     }
 
@@ -76,6 +81,7 @@ export class OrderService {
     static async update(request: UpdateOrderRequest, user: User): Promise<OrderResponse> {
         const updateRequest : any  = Validation.validate(OrderValidation.UPDATE, request);
     await this.checkProductMustExists(updateRequest.product_id);
+    await this.checkOrderMustExists(updateRequest.id, user);
         
         const result = await prismaClient.order.update({
             where: {
@@ -88,7 +94,7 @@ export class OrderService {
 
     static async remove(request: RemoveOrderRequest, user: User): Promise<OrderResponse> {
         const removeRequest = Validation.validate(OrderValidation.GET, request); 
-        await this.checkOrderMustExists(user.id, removeRequest.id);
+        await this.checkOrderMustExists(removeRequest.id, user);
         // if (OrderFile.image) {
         //     fs.unlinkSync(path.resolve(OrderFile.image)); // Remove the photo file if it exists
         // }

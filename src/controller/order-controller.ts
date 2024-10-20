@@ -44,7 +44,7 @@ export class OrderController {
             // if (!req.user) {
             //     return next(ResponseError.serverError("User is not authenticated"));
             // }
-            const response = await OrderService.getById(orderId, req.user!);
+            const response = await OrderService.getById(orderId);
 
             res.status(200).json(ResponseSuccess.success(response, "Order retrieved successfully"));
         } catch (e) {
@@ -58,6 +58,7 @@ export class OrderController {
             const orderId = String(req.params.orderId);
             const request: UpdateOrderRequest = {
                 id: orderId,
+                
                 ...req.body
             };
             const response = await OrderService.update(request, req.user!);

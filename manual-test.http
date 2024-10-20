@@ -292,7 +292,6 @@ X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
   "qty": 1,
   "total_price": 10000,
   "status": "pending",
-  "stok": 2,
   "product_id": "9ba0ea2e-6621-4235-9854-a03fc6810db3"
 }
 
@@ -300,30 +299,31 @@ X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 ### get Order
 GET http://localhost:3000/api/orders
 Accept: application/json
-X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 
 
 ### get Order byId
-GET http://localhost:3000/api/orders/0826c6f6-911d-4aea-a6bd-6d3f62c7ed87
+GET http://localhost:3000/api/orders/b2b08070-1933-4321-b7b0-fa45ee1c4988
 Accept: application/json
-X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 
 ### Update Order
-PATCH http://localhost:3000/api/orders/0826c6f6-911d-4aea-a6bd-6d3f62c7ed87
+PATCH http://localhost:3000/api/orders/b2b08070-1933-4321-b7b0-fa45ee1c4988
 Content-Type: application/json
-X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 
 {
-  "name" : "Pel",
-  "description" : "sagala aya cuy",
-  "category_id" : "dd7d820f-0ddd-4b77-ac72-70dc179e5cf6",
-  "store_id" : "09f9b185-c545-48f8-81d7-7d7a1255d2d1"
+  "order_id": "c9211829-cbc0-43f3-a4f6-eb66a054addf",
+  "qty": 2,
+  "total_price": 20000,
+  "status": "delivered",
+  "product_id": "9ba0ea2e-6621-4235-9854-a03fc6810db3"
 }
 
 ### Remove Order
 DELETE http://localhost:3000/api/orders/e44dd264-28ea-40d5-a0d8-6d27d70e84be
 Accept: application/json
-X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 
 
 
