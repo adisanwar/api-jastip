@@ -6,6 +6,8 @@ import { OrderService } from "../service/order-service";
 import { ResponseSuccess } from "../response/response-success";
 import { ResponseError } from "../response/response-error";
 import { UserRequest } from "../type/user-request";
+import { v4 as uuidv4 } from 'uuid';
+
 
 export class OrderController {
 
@@ -79,7 +81,5 @@ export class OrderController {
         }
     }
 }
-function uuidv4() {
-    throw new Error("Function not implemented.");
-}
+
 

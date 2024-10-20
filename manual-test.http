@@ -4,10 +4,10 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "adiganteng1",
+  "username": "adi",
   "password" : "adi123",
   "role" : "customer",
-  "email" : "adi@adi2.com"
+  "email" : "adi@adi.com"
 }
 
 ### Login User
@@ -17,7 +17,7 @@ Accept: application/json
 
 {
   "username": "adi",
-  "password" : "rahasia"
+  "password" : "adi123"
 }
 
 ### Login User
@@ -33,7 +33,7 @@ Accept: application/json
 ### Get User
 GET http://localhost:3000/api/users/current
 Accept: application/json
-X-API-TOKEN: 3c3a6831-c1c6-4045-9b8d-54bce8af33b6
+X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
 
 ### Get All User
 GET http://localhost:3000/api/users
@@ -164,7 +164,7 @@ X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 POST http://localhost:3000/api/stores
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 
 {
   "name" : "Toko Berkah",
@@ -175,7 +175,7 @@ X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
 ### get Stores
 GET http://localhost:3000/api/stores
 Accept: application/json
-X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 
 
 ### get Stores byId
@@ -203,7 +203,7 @@ X-API-TOKEN: 403cbaf6-af16-4d58-b82a-ca9f81940a59
 POST http://localhost:3000/api/categories
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 
 {
   "name" : "Alat Rumah Tangga",
@@ -213,7 +213,7 @@ X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
 ### get Categories
 GET http://localhost:3000/api/categories
 Accept: application/json
-X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
+X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 
 
 ### get Categories byId
@@ -241,15 +241,15 @@ X-API-TOKEN: 403cbaf6-af16-4d58-b82a-ca9f81940a59
 POST http://localhost:3000/api/products
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 
 {
   "name" : "Sapu",
   "description" : "Parabot",
   "price" : 10000,
   "stok" : 2,
-  "category_id" : "dd7d820f-0ddd-4b77-ac72-70dc179e5cf6",
-  "store_id" : "09f9b185-c545-48f8-81d7-7d7a1255d2d1"
+  "category_id" : "22c4c486-f275-4926-9729-a1317218aeea",
+  "store_id" : "f6f587dc-5225-40b0-9e7d-bc6a121310b9"
 }
 
 ### get Product
@@ -272,7 +272,7 @@ X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
   "name" : "Pel",
   "description" : "sagala aya cuy",
   "category_id" : "dd7d820f-0ddd-4b77-ac72-70dc179e5cf6",
-  "store_id" : "09f9b185-c545-48f8-81d7-7d7a1255d2d1"
+  "store_id" : "f6f587dc-5225-40b0-9e7d-bc6a121310b9"
 }
 
 ### Remove Product
@@ -286,15 +286,16 @@ X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
 POST http://localhost:3000/api/orders
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 
 {
   "qty": 1,
   "total_price": 10000,
   "status": "pending",
   "stok": 2,
-  "product_id": "dd7d820f-0ddd-4b77-ac72-70dc179e5cf6",
+  "product_id": "9ba0ea2e-6621-4235-9854-a03fc6810db3"
 }
+
 
 ### get Order
 GET http://localhost:3000/api/orders

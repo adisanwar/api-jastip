@@ -52,6 +52,7 @@ export class OrderService {
         const order = await prismaClient.order.findFirst({
           where: {
             id: orderId,
+            user_id: userId
           },
         });
     

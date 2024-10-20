@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { CreateStoreRequest, RemoveStoreRequest, UpdateStoreRequest } from "../model/store-model";
 import { StoreService } from "../service/store-service";
-import { TheaterRequest } from "../type/theater-request";
 // import { logger } from "../application/logging";
 import { ResponseSuccess } from "../response/response-success";
 import { ResponseError } from "../response/response-error";

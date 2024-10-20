@@ -48,7 +48,7 @@ CREATE TABLE `addresses` (
 -- CreateTable
 CREATE TABLE `stores` (
     `id` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(20) NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
     `description` VARCHAR(255) NULL,
     `location` VARCHAR(100) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -60,9 +60,9 @@ CREATE TABLE `stores` (
 -- CreateTable
 CREATE TABLE `products` (
     `id` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
     `description` VARCHAR(255) NULL,
-    `image_url` VARCHAR(191) NULL,
+    `image_url` VARCHAR(100) NULL,
     `price` DOUBLE NOT NULL,
     `stok` INTEGER NOT NULL,
     `store_id` VARCHAR(191) NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE `products` (
 -- CreateTable
 CREATE TABLE `orders` (
     `id` VARCHAR(191) NOT NULL,
-    `order_id` VARCHAR(20) NOT NULL,
+    `order_id` VARCHAR(255) NOT NULL,
     `user_id` VARCHAR(191) NOT NULL,
     `product_id` VARCHAR(191) NOT NULL,
     `qty` INTEGER NOT NULL,

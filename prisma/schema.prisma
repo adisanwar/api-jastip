@@ -99,7 +99,7 @@ model Product {
 
 model Order {
   id          String   @id @default(uuid())
-  order_id    String   @db.VarChar(50)
+  order_id    String   @db.VarChar(255)
   user_id     String 
   product_id  String   
   qty         Int

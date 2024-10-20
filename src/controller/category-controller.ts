@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { CreateCategoryRequest, RemoveCategoryRequest, UpdateCategoryRequest } from "../model/category-model";
 import {CategoryService } from "../service/category-service";
-import { TheaterRequest } from "../type/theater-request";
 // import { logger } from "../application/logging";
 import { ResponseSuccess } from "../response/response-success";
 import { ResponseError } from "../response/response-error";
@@ -55,7 +54,7 @@ export class CategoryController {
         }
     }
 
-    static async remove(req: TheaterRequest, res: Response, next: NextFunction) {
+    static async remove(req: Request, res: Response, next: NextFunction) {
         try {
             const request: RemoveCategoryRequest = {    
                 id: String(req.params.categoryId)
