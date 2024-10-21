@@ -38,7 +38,7 @@ X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
 ### Get All User
 GET http://localhost:3000/api/users
 Accept: application/json
-X-API-TOKEN: 3c3a6831-c1c6-4045-9b8d-54bce8af33b6
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
 ### Logout User
 DELETE http://localhost:3000/api/users/current
@@ -164,7 +164,7 @@ X-API-TOKEN: 950d0b15-212e-4121-8059-4a66513f088c
 POST http://localhost:3000/api/stores
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
 {
   "name" : "Toko Berkah",
@@ -203,7 +203,7 @@ X-API-TOKEN: 403cbaf6-af16-4d58-b82a-ca9f81940a59
 POST http://localhost:3000/api/categories
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
 {
   "name" : "Alat Rumah Tangga",
@@ -213,7 +213,7 @@ X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 ### get Categories
 GET http://localhost:3000/api/categories
 Accept: application/json
-X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
 
 ### get Categories byId
@@ -241,21 +241,21 @@ X-API-TOKEN: 403cbaf6-af16-4d58-b82a-ca9f81940a59
 POST http://localhost:3000/api/products
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
 {
   "name" : "Sapu",
   "description" : "Parabot",
   "price" : 10000,
   "stok" : 2,
-  "category_id" : "22c4c486-f275-4926-9729-a1317218aeea",
-  "store_id" : "f6f587dc-5225-40b0-9e7d-bc6a121310b9"
+  "category_id" : "1ef62ca4-d0cb-42e3-9698-e390c0a72255",
+  "store_id" : "bd694927-ef1b-49ad-a9a6-f00c0b1d0b21"
 }
 
 ### get Product
 GET http://localhost:3000/api/products
 Accept: application/json
-X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
 
 ### get Product byId
@@ -286,31 +286,31 @@ X-API-TOKEN: 7b5f9e36-61b7-4cda-b1a4-b6deb6b7a523
 POST http://localhost:3000/api/orders
 Accept: application/json
 Content-Type: application/json
-X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
 {
   "qty": 1,
   "total_price": 10000,
   "status": "pending",
-  "product_id": "9ba0ea2e-6621-4235-9854-a03fc6810db3"
+  "product_id": "a109ead0-9d2c-4171-a7c7-e60d4b5895d5"
 }
 
 
 ### get Order
 GET http://localhost:3000/api/orders
 Accept: application/json
-X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
 
 ### get Order byId
 GET http://localhost:3000/api/orders/b2b08070-1933-4321-b7b0-fa45ee1c4988
 Accept: application/json
-X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
 ### Update Order
 PATCH http://localhost:3000/api/orders/b2b08070-1933-4321-b7b0-fa45ee1c4988
 Content-Type: application/json
-X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
 {
   "order_id": "c9211829-cbc0-43f3-a4f6-eb66a054addf",
@@ -323,8 +323,50 @@ X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
 ### Remove Order
 DELETE http://localhost:3000/api/orders/e44dd264-28ea-40d5-a0d8-6d27d70e84be
 Accept: application/json
-X-API-TOKEN: 373a7562-1e37-4547-be07-def1823b947d
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
+### Create Payments
+POST http://localhost:3000/api/orders
+Accept: application/json
+Content-Type: application/json
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
+
+{
+  "qty": 1,
+  "total_price": 10000,
+  "status": "pending",
+  "product_id": "a109ead0-9d2c-4171-a7c7-e60d4b5895d5"
+}
+
+
+### get payment
+GET http://localhost:3000/api/payments
+Accept: application/json
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
+
+
+### get payment byId
+GET http://localhost:3000/api/payments/b2b08070-1933-4321-b7b0-fa45ee1c4988
+Accept: application/json
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
+
+### Update payment
+PATCH http://localhost:3000/api/payments/b2b08070-1933-4321-b7b0-fa45ee1c4988
+Content-Type: application/json
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
+
+{
+  "order_id": "c9211829-cbc0-43f3-a4f6-eb66a054addf",
+  "qty": 2,
+  "total_price": 20000,
+  "status": "delivered",
+  "product_id": "9ba0ea2e-6621-4235-9854-a03fc6810db3"
+}
+
+### Remove payment
+DELETE http://localhost:3000/api/payments/e44dd264-28ea-40d5-a0d8-6d27d70e84be
+Accept: application/json
+X-API-TOKEN: c41c9c3a-b220-4bd5-acb9-50e949f503a2
 
 
 

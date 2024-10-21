@@ -5,7 +5,7 @@ export class PaymentValidation {
     static readonly CREATE: ZodType = z.object({
         payment_method: z.string().min(1).max(20),
         payment_status: z.string().min(1).max(20),
-        payment_url: z.string().min(1).max(100),
+        payment_url: z.string().min(1).max(100).optional(),
         amount: z.number().optional(),
     });
 
@@ -21,7 +21,7 @@ export class PaymentValidation {
         id: z.string().uuid(),
         payment_method: z.string().min(1).max(20),
         payment_status: z.string().min(1).max(20),
-        payment_url: z.string().min(1).max(100),
+        payment_url: z.string().min(1).max(100).optional(),
         amount: z.number().optional(),
     });
 
