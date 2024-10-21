@@ -14,44 +14,50 @@ export class OrderController {
 
     static async create(req: OrderRequest, res: Response, next: NextFunction) {
         try {
+            // Create request body for the payment
             const request: CreatePaymentRequest = {
-                ...req.body, // Copy semua body request
-                payment_status: req.body.payment_status || "pending"
+                ...req.body, // Copy all request body
+                payment_status: req.body.payment_status || "pending",
             };
-
-            // Pastikan req.user sudah pasti ada dengan menggunakan operator non-null assertion (!)
-            const response = await PaymentService.create(request, req.order!);
-            res.status(201).json(ResponseSuccess.created(response, "Order created successfully"));
-            
+    
+            // Ensure req.order is not null/undefined by using non-null assertion (!)
+            const orderId = req.order!.order_id;
+    
             // Prepare parameters for Midtrans Snap API
-      const parameter = {
-        transaction_details: {
-            order_id: req.order,
-          gross_amount: request.amount,
-        },
-        credit_card: {
-          secure: true,
-        },
-      };
-
-      // Create transaction using Midtrans API
-      const transaction = await midtransClient.createTransaction(parameter);
-
-      // Create the order
-      const createPayment = await PaymentService.create(request, req.order!);
-
-      // Update order with payment URL returned by Midtrans
-      const updatePayment = await PaymentService.update({
-        data: {
-          paymentUrl: transaction.redirect_url,
-        },Ser
-      });
-
+            const parameter = {
+                transaction_details: {
+                    order_id: orderId,
+                    gross_amount: request.amount,
+                },
+                credit_card: {
+                    secure: true,
+                },
+            };
+    
+            // Create transaction using Midtrans API
+            const transaction = await midtransClient.createTransaction(parameter);
+    
+            // Create the payment record in your system
+            const createPayment = await PaymentService.create(request, req.order!);
+    
+            // Update order with payment URL returned by Midtrans
+            const updatePayment = await PaymentService.update({
+                data: {
+                    payment_url: transaction.redirect_url, // Save the Midtrans payment URL
+                    order_id : orderId
+                },
+            });
+    
+            // Send successful response with payment details
+            res.status(201).json(ResponseSuccess.created(updatePayment, "Order created successfully"));
+    
         } catch (e) {
             const error = e as Error;
+            // Pass the error to the error handling middleware
             next(ResponseError.serverError(error.message));
         }
     }
+    
 
     static async get(req: Request, res: Response, next: NextFunction) {
         try {
